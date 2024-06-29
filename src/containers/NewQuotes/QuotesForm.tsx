@@ -15,7 +15,7 @@ const QuotesForm = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLSelectElement>) => {
     const {name, value} = event.target;
     setQuotesForm(prevState => ({
       ...prevState,
@@ -52,7 +52,7 @@ const QuotesForm = () => {
       </div>
       <div className="mb-3">
         <label htmlFor="category" className="form-label">Category</label>
-        <select className="form-select" value={quotesForm.category} name="category" id="category">
+        <select onChange={onChange} className="form-select" value={quotesForm.category} name="category" id="category">
           <option value="">Select Category</option>
           <option value="star-wars">Star Wars</option>
           <option value="famous-people">Famous People</option>
