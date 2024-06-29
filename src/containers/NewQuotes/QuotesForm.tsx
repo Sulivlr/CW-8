@@ -52,7 +52,7 @@ const QuotesForm = () => {
       </div>
       <div className="mb-3">
         <label htmlFor="category" className="form-label">Category</label>
-        <select onChange={onChange} className="form-select" value={quotesForm.category} name="category" id="category">
+        <select required onChange={onChange} className="form-select" value={quotesForm.category} name="category" id="category">
           <option value="">Select Category</option>
           <option value="star-wars">Star Wars</option>
           <option value="famous-people">Famous People</option>
@@ -64,7 +64,7 @@ const QuotesForm = () => {
         <label htmlFor="text" className="form-label">Text</label>
         <textarea required onChange={onChange} className="form-control" value={quotesForm.text} id="text" name="text"></textarea>
       </div>
-      <button type="submit" className="btn btn-primary">Save</button>
+      <button type="submit" className="btn btn-primary" disabled={isLoading}>Save</button>
     </form>
 
   );
