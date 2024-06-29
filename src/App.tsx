@@ -1,4 +1,7 @@
 import Appbar from './components/Appbar/Appbar';
+import {Route, Routes} from 'react-router-dom';
+import Quotes from './containers/Qoutes/Quotes';
+import NewQuotes from './NewQuotes';
 
 const App = () => {
   return (
@@ -7,7 +10,11 @@ const App = () => {
         <Appbar />
       </header>
       <main>
-        Everything else!
+        <Routes>
+          <Route path="/" element={<Quotes/>} />
+          <Route path="/new-quote" element={<NewQuotes/>} />
+          <Route path="*" element={<h1>This Page Doesn't exist</h1>} />
+        </Routes>
       </main>
     </>
   );
