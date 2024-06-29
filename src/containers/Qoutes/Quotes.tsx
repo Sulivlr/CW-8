@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 import { ApiQuotes, Quote } from '../../types';
 import Categories from '../../components/categories/categories';
 import axiosApi from '../../axiosApi';
@@ -8,7 +8,6 @@ import Spinner from '../../components/Spinner/Spinner';
 const Quotes = () => {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const { categoryId } = useParams();
 
   const fetchQuotes = useCallback(async () => {
@@ -41,22 +40,24 @@ const Quotes = () => {
     void fetchQuotes();
   }, [fetchQuotes]);
 
-  const deletePost = async (id: string) => {
-    setIsLoading(true);
-    try {
-      await axiosApi.delete(`/quotes/${id}.json`);
-      setQuotes((prevQuotes) => prevQuotes.filter((quote) => quote.id !== id));
-      navigate('/');
-    } catch (error) {
-      console.error('Error deleting quote', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const deletePost = useCallback(async (id: string) => {
+
+      setIsLoading(true);
+      try {
+        await axiosApi.delete('/quotes/' + id + '.json');
+      } catch (error) {
+        console.error('Error deleting quotes', error);
+      } finally {
+        setIsLoading(false);
+        void fetchQuotes();
+      }
+  }, [fetchQuotes]);
+
+
 
   let quotesArea = <Spinner />;
 
-  if (!isLoading && quotes.length > 0) {
+  if (!isLoading && quotes) {
     quotesArea = (
       <div className="container-fluid">
         <div className="row mt-2">
@@ -83,7 +84,7 @@ const Quotes = () => {
         </div>
       </div>
     );
-  } else if (!isLoading && quotes.length === 0) {
+  } else if (!isLoading && !quotes) {
     quotesArea = <h1>Not Found!</h1>;
   }
 
