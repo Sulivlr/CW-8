@@ -1,9 +1,14 @@
+import Appbar from './components/Appbar/Appbar';
+
 const App = () => {
   return (
     <>
-      <div>
-        Hello World!
-      </div>
+      <header>
+        <Appbar />
+      </header>
+      <main>
+        Everything else!
+      </main>
     </>
   );
 };
