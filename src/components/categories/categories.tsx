@@ -13,7 +13,7 @@ const Categories = () => {
             <li className="nav-item" key={category.id}>
               <NavLink className="nav-link" aria-current="page" to={"/quotes/" + category.id}>{category.title}</NavLink>
             </li>
-          )
+          );
         })
       }
 
